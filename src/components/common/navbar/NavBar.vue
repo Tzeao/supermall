@@ -1,13 +1,13 @@
 <template>
   <div class="nav-bar">
     <div class="left">
-      <solt name="left"></solt>
+      <slot name="left"></slot>
     </div>
     <div class="center">
-      <solt name="center"></solt>
+      <slot name="center"></slot>
     </div>
     <div class="right">
-      <solt name="right"></solt>
+      <slot name="right"></slot>
     </div>
   </div>
 </template>
@@ -21,7 +21,10 @@ export default {
 <style>
 .nav-bar {
   display: flex;
+  height: 44px;
   line-height: 44px;
+  text-align: center;
+  box-shadow: 0 1px 1px rgba(100, 100, 100, .4);
 }
 .left,
 .right {
