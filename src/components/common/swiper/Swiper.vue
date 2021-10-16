@@ -7,12 +7,12 @@
       @touchmove="touchMove"
       @touchend="touchEnd"
     >
-    <!-- 插槽插入图片 -->
+      <!-- 插槽插入图片 -->
       <slot></slot>
     </div>
 
-<!-- 指示器的插槽 -->
-<!-- 这个是当图片只有一张时 -->
+    <!-- 指示器的插槽 -->
+    <!-- 这个是当图片只有一张时 -->
     <slot name="indicator"> </slot>
     <!-- 这个是多张时-->
     <div class="indicator">
@@ -62,6 +62,7 @@ export default {
       scrolling: false, // 是否正在滚动
     };
   },
+  // 页面初始化完成后，执行函数
   mounted: function () {
     // 1.操作DOM, 在前后添加Slide
     setTimeout(() => {
@@ -73,6 +74,7 @@ export default {
   methods: {
     /**
      * 定时器操作
+     * 开始自动轮播
      */
     startTimer: function () {
       this.playTimer = window.setInterval(() => {
@@ -80,6 +82,7 @@ export default {
         this.scrollContent(-this.currentIndex * this.totalWidth);
       }, this.interval);
     },
+    // 停止自动轮播
     stopTimer: function () {
       window.clearInterval(this.playTimer);
     },
@@ -91,6 +94,7 @@ export default {
       this.scrolling = true;
       // 1.开始滚动动画
       this.swiperStyle.transition = "transform " + this.animDuration + "ms";
+      // 通过这个函数，进行图片的位置变化
       this.setTransform(currentPosition);
       // 2.判断滚动到的位置
       this.checkPosition();
@@ -126,19 +130,24 @@ export default {
       this.swiperStyle["-ms-transform"] = `translate3d(${position}px), 0, 0`;
     },
     /**
-     * 操作DOM, 在DOM前后添加Slide
+     * 操作DOM, 在DOM前后添加要轮播的图片
      */
     handleDom: function () {
       // 1.获取要操作的元素
       let swiperEl = document.querySelector(".swiper");
+      // 使用这个可以知道有第三个slide
       let slidesEls = swiperEl.getElementsByClassName("slide");
       // 2.保存个数
       this.slideCount = slidesEls.length;
-      // 3.如果大于1个, 那么在前后分别添加一个slide
+      // 3.如果大于1个, 那么在前后分别添加一个slide 让图片进行过度的
       if (this.slideCount > 1) {
+        // 第一个复制过去   cloneNode
         let cloneFirst = slidesEls[0].cloneNode(true);
+        // 最后一个复制过去
         let cloneLast = slidesEls[this.slideCount - 1].cloneNode(true);
+        // 已有子节点之前插入新的子节点
         swiperEl.insertBefore(cloneLast, slidesEls[0]);
+        // 向节点添加最后一个子节点
         swiperEl.appendChild(cloneFirst);
         this.totalWidth = swiperEl.offsetWidth;
         this.swiperStyle = swiperEl.style;
