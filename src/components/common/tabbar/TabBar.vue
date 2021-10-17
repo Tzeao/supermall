@@ -1,23 +1,28 @@
 <template>
   <div id="tab-bar">
-   <slot></slot>
+    <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  name:'TabBar'
+  name: "TabBar",
 };
 </script>
 
 <style>
 #tab-bar {
-  display: flex;
-  background: #f2f2f2;
+  background-color: #f6f6f6;
+  height: 49px;
+  border-top: 1px solid #eee;
+  box-shadow: 0px -1px 1px rgba(150, 150, 150, 0.08);
+  /* 定位相关 */
   position: fixed;
-  bottom: 0;
   left: 0;
   right: 0;
-  box-shadow: 0 -1px 2px rgba(100, 100, 100, 0.1);
+  bottom: 0;
+  /* 利用flex进行布局 */
+  display: flex;
+  text-align: center;
 }
 </style>

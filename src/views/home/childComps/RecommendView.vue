@@ -26,18 +26,18 @@ export default {
 <style>
 .recommend {
   display: flex;
-  width: 100%;
   text-align: center;
   font-size: 12px;
-  padding: 10px 0 15px;
-  border-bottom: 10px solid #eee;
+  padding: 5px 0px;
+  border-bottom: 8px #eeeeee solid;
+  width: 100%;
 }
 .recommend-item {
   flex: 1;
 }
-.recommend-item img{
-  width: 68px;
-  height: 68px;
+.recommend-item img {
+  width: 70px;
+  height: 70px;
   margin-bottom: 10px;
 }
 </style>

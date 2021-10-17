@@ -6,6 +6,59 @@
     <home-swiper :banner="banners" />
     <recommend-view :recommends="recommends" />
     <feature-view></feature-view>
+    <tab-control class="tab-control" :titles="['流行','新款','精选']"/>
+    <ul>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+      <li>sss</li>
+    </ul>
   </div>
 </template>
 
@@ -14,6 +67,8 @@ import NavBar from "common/navbar/NavBar";
 import HomeSwiper from "./childComps/HomeSwiper";
 import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView";
+
+import TabControl from "content/tabControl/TabControl"
 
 import { getHomeMultidata } from "network/home";
 
@@ -24,6 +79,7 @@ export default {
     HomeSwiper,
     RecommendView,
     FeatureView,
+    TabControl
   },
   data() {
     return {
@@ -56,5 +112,9 @@ export default {
   right: 0;
   top: 0;
   z-index: 9;
+}
+.tab-control{
+  position:sticky;
+  top:44px;
 }
 </style>
