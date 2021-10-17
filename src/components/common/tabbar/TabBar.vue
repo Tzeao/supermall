@@ -24,5 +24,6 @@ export default {
   /* 利用flex进行布局 */
   display: flex;
   text-align: center;
+  z-index: 8;
 }
 </style>

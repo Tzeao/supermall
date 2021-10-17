@@ -17,4 +17,7 @@ export default {
   
 <style>
 @import "assets/css/baes.css";
+/* body{
+  overflow:hidden
+} */
 </style>
