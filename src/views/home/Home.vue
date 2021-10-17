@@ -70,7 +70,7 @@ import FeatureView from "./childComps/FeatureView";
 
 import TabControl from "content/tabControl/TabControl";
 
-import { getHomeMultidata } from "network/home";
+import { getHomeMultidata, getHomeGoods } from "network/home";
 
 export default {
   name: "Home",
@@ -87,18 +87,36 @@ export default {
       recommends: [],
       goods: {
         pop: { page: 0, list: [] },
-        news: { page: 0, list: [] },
+        new: { page: 0, list: [] },
         sell: { page: 0, list: [] },
       },
     };
   },
   created() {
+    // 抽取出来，防止业务代码太多
     // 1. 请求多个数据
-    getHomeMultidata().then((res) => {
-      console.log(res);
-      this.banners = res.data.banner.list;
-      this.recommends = res.data.recommend.list;
-    });
+    this.getHomeMultidata();
+    // 请求商品数据
+    this.getHomeGoods("pop");
+    this.getHomeGoods("new");
+    this.getHomeGoods("sell");
+  },
+  methods: {
+    getHomeMultidata() {
+      getHomeMultidata().then((res) => {
+        this.banners = res.data.banner.list;
+        this.recommends = res.data.recommend.list;
+      });
+    },
+    getHomeGoods(type) {
+      const page = this.goods[type].page + 1;
+      getHomeGoods(type, page).then((res) => {
+        // 把的到的数据加到数组里面
+        this.goods[type].list.push(...res.data.list);
+        // 每调用一次这个方法就给页数加一
+        this.goods[type].page += 1;
+      });
+    },
   },
 };
 </script>
