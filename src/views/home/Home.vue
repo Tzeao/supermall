@@ -6,7 +6,7 @@
     <home-swiper :banner="banners" />
     <recommend-view :recommends="recommends" />
     <feature-view></feature-view>
-    <tab-control class="tab-control" :titles="['流行','新款','精选']"/>
+    <tab-control class="tab-control" :titles="['流行', '新款', '精选']" />
     <ul>
       <li>sss</li>
       <li>sss</li>
@@ -68,7 +68,7 @@ import HomeSwiper from "./childComps/HomeSwiper";
 import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView";
 
-import TabControl from "content/tabControl/TabControl"
+import TabControl from "content/tabControl/TabControl";
 
 import { getHomeMultidata } from "network/home";
 
@@ -79,12 +79,17 @@ export default {
     HomeSwiper,
     RecommendView,
     FeatureView,
-    TabControl
+    TabControl,
   },
   data() {
     return {
       banners: [],
       recommends: [],
+      goods: {
+        pop: { page: 0, list: [] },
+        news: { page: 0, list: [] },
+        sell: { page: 0, list: [] },
+      },
     };
   },
   created() {
@@ -113,8 +118,8 @@ export default {
   top: 0;
   z-index: 9;
 }
-.tab-control{
-  position:sticky;
-  top:44px;
+.tab-control {
+  position: sticky;
+  top: 44px;
 }
 </style>
