@@ -7,6 +7,7 @@
     <recommend-view :recommends="recommends" />
     <feature-view></feature-view>
     <tab-control class="tab-control" :titles="['流行', '新款', '精选']" />
+    <goods-list :goods="goods['pop'].list"/>
     <ul>
       <li>sss</li>
       <li>sss</li>
@@ -69,6 +70,7 @@ import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView";
 
 import TabControl from "content/tabControl/TabControl";
+import GoodsList from "content/goods/GoodsList"
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
 
@@ -80,6 +82,7 @@ export default {
     RecommendView,
     FeatureView,
     TabControl,
+    GoodsList
   },
   data() {
     return {
@@ -139,5 +142,6 @@ export default {
 .tab-control {
   position: sticky;
   top: 44px;
+  z-index: 7;
 }
 </style>
