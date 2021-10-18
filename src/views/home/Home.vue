@@ -72,7 +72,16 @@ export default {
       currentType: "pop",
       tabOffsetTop: 0,
       isFiexd: false,
+      saveY:0
     };
+  },
+
+  activated () {
+    this.$refs.scroll.scroll.scrollTo(0,this.saveY,0)
+    this.$refs.scroll.refresh();
+  },
+  deactivated () {
+    this.saveY = this.$refs.scroll.scroll.y
   },
   created() {
     // 抽取出来，防止业务代码太多
