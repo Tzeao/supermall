@@ -72,12 +72,13 @@ export default {
     this.getHomeGoods("pop");
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
-
+  },
+  mounted() {
     // 监听事件总线发过来的是否图片加载的方法
     this.$bus.$on("imageLoad", () => {
       console.log("------");
       // 重新计算可滚动区域，防止出现卡顿
-      this.$refs.scroll.scroll.refresh();
+      this.$refs.scroll.scroll && this.$refs.scroll.scroll.refresh();
     });
   },
   computed: {
@@ -104,7 +105,9 @@ export default {
     },
     backClick() {
       // 拿到better-scroll实例，调用返回顶部方法
-      this.$refs.scroll.scroll.scrollTo(0, 0, 1500);
+      this.$refs.scroll.scroll &&
+        this.$refs.scroll.scroll.scrollTo &&
+        this.$refs.scroll.scroll.scrollTo(0, 0, 1500);
     },
     // 小图标显示-隐藏
     contentScroll(position) {

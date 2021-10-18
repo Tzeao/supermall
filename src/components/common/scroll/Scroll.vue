@@ -21,9 +21,9 @@ export default {
       default: 0,
     },
     pullUpLoad: {
-        type:Boolean,
-        default:false
-      },
+      type: Boolean,
+      default: false,
+    },
   },
   mounted() {
     this.scroll = new BScroll(this.$refs.scroll, {
@@ -39,15 +39,15 @@ export default {
       this.$emit("scroll", position);
     });
     // 监听上拉事件
-    this.scroll.on("pullingUp",()=>{
+    this.scroll.on("pullingUp", () => {
       this.$emit("pullingUp");
-    })
+    });
   },
   methods: {
-    finishPullUp(){
-      this.scroll.finishPullUp()
-    }
-  }
+    finishPullUp() {
+      this.scroll.finishPullUp();
+    },
+  },
 };
 </script>
 
