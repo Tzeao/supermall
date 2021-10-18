@@ -4,7 +4,12 @@
       <div slot="center">购物街</div>
     </nav-bar>
     <!-- 拿到组件对象 -->
-    <scroll class="conter" ref="scroll">
+    <scroll
+      class="conter"
+      ref="scroll"
+      :prober-type="3"
+      @scroll="contentScroll"
+    >
       <home-swiper :banner="banners" />
       <recommend-view :recommends="recommends" />
       <feature-view></feature-view>
@@ -15,7 +20,7 @@
       />
       <goods-list :goods="showGoods" />
     </scroll>
-    <back-top @click.native="backClick" />
+    <back-top @click.native="backClick" v-show="isShow" />
   </div>
 </template>
 
@@ -53,6 +58,7 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] },
       },
+      isShow: false,
       currentType: "pop",
     };
   },
@@ -89,7 +95,12 @@ export default {
     },
     backClick() {
       // 拿到better-scroll实例，调用返回顶部方法
-      this.$refs.scroll.scroll.scrollTo(0, 0,1500);
+      this.$refs.scroll.scroll.scrollTo(0, 0, 1500);
+    },
+    // 小图标显示-隐藏
+    contentScroll(position) {
+      console.log(position);
+      this.isShow = (-position.y) > 1000;
     },
     /*
     网络请求的方法
