@@ -38,6 +38,7 @@ import GoodsList from "content/goods/GoodsList";
 import BackTop from "common/backTop/BackTop";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
+import { debounce } from "commonutil/util";
 
 export default {
   name: "Home",
@@ -74,7 +75,7 @@ export default {
     this.getHomeGoods("sell");
   },
   mounted() {
-    const refresh = this.debounce(this.$refs.scroll.refresh, 500);
+    const refresh = debounce(this.$refs.scroll.refresh, 500);
     // 监听事件总线发过来的是否图片加载的方法
     this.$bus.$on("imageLoad", () => {
       refresh();
@@ -119,16 +120,17 @@ export default {
       this.getHomeGoods(this.currentType);
     },
 
-    // 防抖动
-    debounce(func, delay) {
-      let timer = null;
-      return function (...args) {
-        if (timer) clearTimeout(timer);
-        timer = setTimeout(() => {
-          func.apply(this, args);
-        }, delay);
-      };
-    },
+    // // 防抖动
+    // debounce(func, delay) {
+    //   let timer = null;
+    //   return function (...args) {
+    //     if (timer) clearTimeout(timer);
+    //     timer = setTimeout(() => {
+    //       func.apply(this, args);
+    //     }, delay);
+    //   };
+    // },
+
     /*
     网络请求的方法
     */ getHomeMultidata() {
