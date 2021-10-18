@@ -129,7 +129,7 @@ export default {
   z-index: 9; */
   position: sticky;
   top: 44px;
-  z-index: 7;
+  z-index: 10;
 }
 .conter {
   /*height: calc(100% - 50px);*/
