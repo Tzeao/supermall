@@ -14,19 +14,20 @@
       />
       <goods-list :goods="showGoods" />
     </scroll>
+    <back-top />
   </div>
 </template>
 
 <script>
-import NavBar from "common/navbar/NavBar";
 import HomeSwiper from "./childComps/HomeSwiper";
 import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView";
-import Scroll from "common/scroll/Scroll";
 
+import Scroll from "common/scroll/Scroll";
+import NavBar from "common/navbar/NavBar";
 import TabControl from "content/tabControl/TabControl";
 import GoodsList from "content/goods/GoodsList";
-
+import BackTop from "common/backTop/BackTop";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
 
@@ -40,6 +41,7 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
+    BackTop,
   },
   data() {
     return {
@@ -110,7 +112,7 @@ export default {
 <style scoped>
 #home {
   /* padding-top: 44px; */
-   height: 100vh;
+  height: 100vh;
   position: relative;
 }
 .home-nav {
@@ -125,7 +127,7 @@ export default {
   z-index: 9; */
 }
 .tab-control {
-   /* position: relative;
+  /* position: relative;
   z-index: 9; */
   position: sticky;
   top: 44px;
