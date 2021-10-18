@@ -16,7 +16,7 @@ export default {
     };
   },
   props: {
-    proberType: {
+    probeType: {
       type: Number,
       default: 0,
     },
@@ -32,12 +32,13 @@ export default {
       click: true,
       observeDOM: true,
       observeImage: true,
-      probeType: this.proberType,
+      probeType: this.probeType,
     });
     // 监听滚动位置
     if (this.probeType === 2 || this.probeType === 3) {
       this.scroll.on("scroll", (position) => {
         this.$emit("scroll", position);
+        console.log("sss");
       });
     }
     // 监听上拉事件

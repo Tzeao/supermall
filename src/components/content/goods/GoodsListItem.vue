@@ -1,7 +1,7 @@
 <template>
   <div class="goods-item">
     <!-- load 监听图片是否加载完成 -->
-    <img :src="goodsItem.show.img" alt="" @load="imageLoad"/>
+    <img :src="goodsItem.show.img" alt="" @load="imageLoad" />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
@@ -22,11 +22,11 @@ export default {
     },
   },
   methods: {
-    imageLoad(){
-    // 通过事件总线的发射一个事件
-    this.$bus.$emit('imageLoad')
-    }
-  }
+    imageLoad() {
+      // 通过事件总线的发射一个事件
+      this.$bus.$emit("imageLoad");
+    },
+  },
 };
 </script>
 

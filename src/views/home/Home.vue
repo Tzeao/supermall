@@ -3,22 +3,29 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
+    <tab-control
+      class="tab-control"
+      :titles="['流行', '新款', '精选']"
+      @tabClick="tabClick"
+      ref="tabcontrol1"
+      v-show="isFiexd"
+    />
     <!-- 拿到组件对象 -->
     <scroll
       class="conter"
       ref="scroll"
-      :prober-type="3"
+      :probe-type="3"
       @scroll="contentScroll"
       :pull-up-load="true"
       @pullingUp="contenPullingUp"
     >
-      <home-swiper :banner="banners" />
+      <home-swiper :banner="banners" @swiperImageLoad="swiperImageLoad" />
       <recommend-view :recommends="recommends" />
       <feature-view></feature-view>
       <tab-control
-        class="tab-control"
         :titles="['流行', '新款', '精选']"
         @tabClick="tabClick"
+        ref="tabcontrol2"
       />
       <goods-list :goods="showGoods" />
     </scroll>
@@ -63,6 +70,8 @@ export default {
       },
       isShow: false,
       currentType: "pop",
+      tabOffsetTop: 0,
+      isFiexd: false,
     };
   },
   created() {
@@ -75,6 +84,7 @@ export default {
     this.getHomeGoods("sell");
   },
   mounted() {
+    // 图片加载完成监听
     const refresh = debounce(this.$refs.scroll.refresh, 500);
     // 监听事件总线发过来的是否图片加载的方法
     this.$bus.$on("imageLoad", () => {
@@ -82,11 +92,13 @@ export default {
       // 重新计算可滚动区域，防止出现卡顿
     });
   },
+
   computed: {
     showGoods() {
       return this.goods[this.currentType].list;
     },
   },
+
   methods: {
     /**
      * 事件监听
@@ -103,6 +115,8 @@ export default {
           this.currentType = "sell";
           break;
       }
+      this.$refs.tabcontrol1.currntIndex = index;
+      this.$refs.tabcontrol2.currntIndex = index;
     },
     backClick() {
       // 拿到better-scroll实例，调用返回顶部方法
@@ -112,12 +126,24 @@ export default {
     },
     // 小图标显示-隐藏
     contentScroll(position) {
+      console.log("55");
       this.isShow = -position.y > 1000;
+      // 决定是否吸顶
+      this.isFiexd = -position.y > this.tabOffsetTop;
+      console.log(this.isFiexd);
     },
 
     // 上拉加载
     contenPullingUp() {
       this.getHomeGoods(this.currentType);
+    },
+
+    // 判断轮播图是否加载完成
+    swiperImageLoad() {
+      // 获取到tabcontrol的offsetTop
+      // 所有组件都有一个属性$el，这个是原来获取组件中的元素的
+      this.tabOffsetTop = this.$refs.tabcontrol2.$el.offsetTop;
+      console.log(this.tabOffsetTop);
     },
 
     // // 防抖动
@@ -172,11 +198,11 @@ export default {
   z-index: 9; */
 }
 .tab-control {
-  /* position: relative;
-  z-index: 9; */
-  position: sticky;
+  position: relative;
+  z-index: 9;
+  /* position: sticky;
   top: 44px;
-  z-index: 10;
+  z-index: 10; */
 }
 .conter {
   /*height: calc(100% - 50px);*/
