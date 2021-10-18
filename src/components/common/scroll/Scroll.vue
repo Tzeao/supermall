@@ -20,11 +20,15 @@ export default {
       type: Number,
       default: 0,
     },
+    pullUpLoad: {
+        type:Boolean,
+        default:false
+      },
   },
   mounted() {
     this.scroll = new BScroll(this.$refs.scroll, {
       mouseWheel: true,
-      pullUpLoad: true,
+      pullUpLoad: this.pullUpLoad,
       click: true,
       observeDOM: true,
       observeImage: true,
@@ -34,7 +38,16 @@ export default {
     this.scroll.on("scroll", (position) => {
       this.$emit("scroll", position);
     });
+    // 监听上拉事件
+    this.scroll.on("pullingUp",()=>{
+      this.$emit("pullingUp");
+    })
   },
+  methods: {
+    finishPullUp(){
+      this.scroll.finishPullUp()
+    }
+  }
 };
 </script>
 

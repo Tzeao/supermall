@@ -9,6 +9,8 @@
       ref="scroll"
       :prober-type="3"
       @scroll="contentScroll"
+      :pull-up-load="true"
+      @pullingUp="contenPullingUp"
     >
       <home-swiper :banner="banners" />
       <recommend-view :recommends="recommends" />
@@ -99,13 +101,20 @@ export default {
     },
     // 小图标显示-隐藏
     contentScroll(position) {
-      console.log(position);
-      this.isShow = (-position.y) > 1000;
+      this.isShow = -position.y > 1000;
     },
+
+    // 上拉加载
+    contenPullingUp() {
+      this.getHomeGoods(this.currentType);
+
+      // 重新计算可滚动区域，防止出现卡顿
+      this.$refs.scroll.scroll.refresh()
+    },
+
     /*
     网络请求的方法
-    */
-    getHomeMultidata() {
+    */ getHomeMultidata() {
       getHomeMultidata().then((res) => {
         this.banners = res.data.banner.list;
         this.recommends = res.data.recommend.list;
@@ -118,6 +127,8 @@ export default {
         this.goods[type].list.push(...res.data.list);
         // 每调用一次这个方法就给页数加一
         this.goods[type].page += 1;
+
+        this.$refs.scroll.finishPullUp();
       });
     },
   },
