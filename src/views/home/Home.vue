@@ -3,7 +3,8 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
-    <scroll class="conter">
+    <!-- 拿到组件对象 -->
+    <scroll class="conter" ref="scroll">
       <home-swiper :banner="banners" />
       <recommend-view :recommends="recommends" />
       <feature-view></feature-view>
@@ -14,7 +15,7 @@
       />
       <goods-list :goods="showGoods" />
     </scroll>
-    <back-top />
+    <back-top @click.native="backClick" />
   </div>
 </template>
 
@@ -86,7 +87,10 @@ export default {
           break;
       }
     },
-
+    backClick() {
+      // 拿到better-scroll实例，调用返回顶部方法
+      this.$refs.scroll.scroll.scrollTo(0, 0,1500);
+    },
     /*
     网络请求的方法
     */
