@@ -72,18 +72,18 @@ export default {
     this.getHomeGoods("pop");
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
+
+    // 监听事件总线发过来的是否图片加载的方法
+    this.$bus.$on("imageLoad", () => {
+      console.log("------");
+      // 重新计算可滚动区域，防止出现卡顿
+      this.$refs.scroll.scroll.refresh();
+    });
   },
   computed: {
     showGoods() {
       return this.goods[this.currentType].list;
     },
-
-    // 监听事件总线发过来的是否图片加载的方法
-    this.$bus.$on('imageLoad',()=>{
-      console.log("------"); 
-      // 重新计算可滚动区域，防止出现卡顿
-      this.$refs.scroll.scroll.refresh()
-    })
   },
   methods: {
     /**
