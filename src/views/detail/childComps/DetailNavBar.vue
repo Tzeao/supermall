@@ -37,7 +37,7 @@ export default {
 .back img{
   width: 18px;
   height: 18px;
-  margin-top: 12px;
+  margin-top: 14px;
   text-align: center;
 }
 </style>
