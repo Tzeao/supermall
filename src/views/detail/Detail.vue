@@ -1,5 +1,5 @@
 <template>
-  <div class="detail">
+  <div id="detail">
     <detail-nav-bar />
     <detail-swiper :topImages="topImage" />
     <detail-base-info :goods="goods"></detail-base-info>
@@ -51,5 +51,5 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 </style>

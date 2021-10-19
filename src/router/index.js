@@ -32,27 +32,42 @@ const routes = [{
     {
         path: '/home',
         name: 'Home',
-        component: Home
+        component: Home,
+        meta: {
+            showNavBar: true
+        }
     },
     {
         path: '/category',
         name: 'Category',
-        component: Category
+        component: Category,
+        meta: {
+            showNavBar: true
+        }
     },
     {
         path: '/cart',
         name: 'Cart',
-        component: Cart
+        component: Cart,
+        meta: {
+            showNavBar: true
+        }
     },
     {
         path: '/profile',
         name: 'Profile',
-        component: Profile
+        component: Profile,
+        meta: {
+            showNavBar: true
+        }
     },
     {
         path: '/detail/:id',
         name: 'Detail',
-        component: Detail
+        component: Detail,
+        meta: {
+            showNavBar: false
+        }
     },
 ]
 
