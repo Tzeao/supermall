@@ -1,15 +1,18 @@
 <template>
   <div v-if="Object.keys(detailInfo).length !== 0">
-    <div class="info-text-wrap">
-      <div class="text-top-style"></div>
-      <div class="desc info-text-desc">{{ detailInfo.desc }}</div>
-      <div class="text-bot-style"></div>
+    <div class="info-desc clear-fix">
+      <div class="start"></div>
+      <div class="desc">{{ detailInfo.desc }}</div>
+      <div class="end"></div>
     </div>
-    <div class="img-list-wrap" v-for="item in detailInfo.detailImage">
-      <div class="desc">{{ item.key }}</div>
-      <div v-for="(item, index) in item.list" :key="index">
-        <img :src="item" alt="" class="img" @load="imgLoad" />
-      </div>
+    <div class="info-key">{{ detailInfo.detailImage[0].key }}</div>
+    <div class="info-list">
+      <img
+        v-for="(item, index) in detailInfo.detailImage[0].list"
+        :src="item"
+        alt=""
+        @load="imgLoad"
+      />
     </div>
   </div>
 </template>
@@ -20,69 +23,76 @@ export default {
   props: {
     detailInfo: {
       type: Object,
-      default() {
-        return {};
-      },
     },
+  },
+  data() {
+    return {
+      counter: 0,
+      imagesLength: 0,
+    };
   },
   methods: {
     imgLoad() {
-      this.$emit("imgLoad");
+      if (++this.counter === this.imagesLength) {
+        this.$emit("imageload");
+      }
+    },
+  },
+  watch: {
+    detailInfo() {
+      this.imagesLength = this.detailInfo.detailImage[0].list.length;
     },
   },
 };
 </script>
 
 <style scoped>
-.info-text-wrap {
-  position: relative;
-  .text-top-style {
-    width: 60px;
-    height: 1px;
-    background-color: #333;
-    margin-left: 4px;
-    &::before {
-      position: absolute;
-      left: 4px;
-      top: -2.5px;
-      display: block;
-      content: "";
-      width: 5px;
-      height: 5px;
-      background-color: #333;
-    }
-  }
-  .text-bot-style {
-    width: 60px;
-    height: 1px;
-    background-color: #333;
-    position: absolute;
-    right: 4px;
-    bottom: 0;
-    &::after {
-      position: absolute;
-      right: 0;
-      top: -2.5px;
-      display: block;
-      content: "";
-      width: 5px;
-      height: 5px;
-      background-color: #333;
-    }
-  }
-  .info-text-desc {
-    padding: 10px 4px;
-  }
+.info-desc {
+  padding: 0 15px;
 }
 
-.desc {
-  font-size: 14px;
-  padding-bottom: 6px;
-  line-height: 20px;
-  margin: 4px 0;
-  text-indent: 10px;
+.info-desc .start,
+.info-desc .end {
+  width: 90px;
+  height: 1px;
+  background-color: #a3a3a5;
+  position: relative;
 }
-.img {
+
+.info-desc .start {
+  float: left;
+}
+
+.info-desc .end {
+  float: right;
+}
+
+.info-desc .start::before,
+.info-desc .end::after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: #333;
+  bottom: 0;
+}
+
+.info-desc .end::after {
+  right: 0;
+}
+
+.info-desc .desc {
+  padding: 15px 0;
+  font-size: 14px;
+}
+
+.info-key {
+  margin: 10px 0 10px 15px;
+  color: #333;
+  font-size: 15px;
+}
+
+.info-list img {
   width: 100%;
 }
 </style>
