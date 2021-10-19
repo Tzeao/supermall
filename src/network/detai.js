@@ -22,6 +22,14 @@ export class GoodsInfo {
     }
 }
 
+// 商品详情
+export class GoodsParam {
+    constructor(info, rule) {
+        this.image = info.image ? info.images[0] : ""
+        this.infos = info.set
+        this.sizes = rule.tables
+    }
+}
 
 // 把商家信息封装为一个类
 export class Shop {
