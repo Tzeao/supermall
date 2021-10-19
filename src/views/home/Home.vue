@@ -72,17 +72,19 @@ export default {
       currentType: "pop",
       tabOffsetTop: 0,
       isFiexd: false,
-      saveY:0
+      saveY: 0,
+      itemImageListener: null,
     };
   },
 
-  activated () {
-     this.$refs.scroll.refresh();
-    this.$refs.scroll.scroll.scrollTo(0,this.saveY,0)
+  activated() {
+    this.$refs.scroll.refresh();
+    this.$refs.scroll.scroll.scrollTo(0, this.saveY, 0);
   },
-  deactivated () {
-    this.saveY = this.$refs.scroll.scroll.y
-       
+  deactivated() {
+    this.saveY = this.$refs.scroll.scroll.y;
+    // 取消全局监听
+    this.$bus.$off("imageLoad", this.itemImageListener);
   },
   created() {
     // 抽取出来，防止业务代码太多
@@ -97,10 +99,11 @@ export default {
     // 图片加载完成监听
     const refresh = debounce(this.$refs.scroll.refresh, 500);
     // 监听事件总线发过来的是否图片加载的方法
-    this.$bus.$on("imageLoad", () => {
+    this.itemImageListener = () => {
       refresh();
       // 重新计算可滚动区域，防止出现卡顿
-    });
+    };
+    this.$bus.$on("imageLoad", this.itemImageListener);
   },
 
   computed: {
