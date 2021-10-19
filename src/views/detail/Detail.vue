@@ -8,7 +8,7 @@
       <detail-goods-info :detail-info="detailInfo" @imageload="imageload" />
       <detail-param-info :paramInfo="paramInfo" />
       <detail-comment-info :commentInfo="commentInfo" />
-      <goods-list :goods="recommend"/>
+      <goods-list :goods="recommend" />
     </scroll>
   </div>
 </template>
@@ -25,6 +25,7 @@ import DetailCommentInfo from "./childComps/DetailCommentInfo";
 import Scroll from "common/scroll/Scroll";
 import GoodsList from "content/goods/GoodsList";
 
+import { debounce } from "commonutil/util";
 import {
   getDetail,
   GoodsInfo,
@@ -44,6 +45,7 @@ export default {
       paramInfo: {},
       commentInfo: {},
       recommend: [],
+      itemImageListener: null,
     };
   },
   components: {
@@ -98,6 +100,18 @@ export default {
     getRecommend().then((res) => {
       this.recommend = res.data.list;
     });
+  },
+  mounted() {
+    let newRefresh = debounce(this.$refs.scroll.refresh, 100);
+    this.itemImageListener = () => {
+      newRefresh();
+    };
+
+    this.$bus.$on("imageLoad", this.itemImageListener);
+  },
+  // 取消全局监听
+  destroyed() {
+    this.$bus.$off("imageLoad", this.itemImageListener);
   },
 };
 </script>
