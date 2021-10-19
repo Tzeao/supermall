@@ -1,11 +1,11 @@
 <template>
   <div>
     <nav-bar>
-      <div slot="left" class="back" @click="back"> 
-      <img src="~assets/img/common/back.svg" alt="">
+      <div slot="left" class="back" @click="back">
+        <img src="~assets/img/common/back.svg" alt="" />
       </div>
       <div slot="center">
-        <tab-control :titles="titles"/>
+        <tab-control :titles="titles" />
       </div>
     </nav-bar>
   </div>
@@ -26,15 +26,15 @@ export default {
     };
   },
   methods: {
-    back(){
-      this.$router.back()
-    }
-  }
+    back() {
+      this.$router.back();
+    },
+  },
 };
 </script>
 
 <style>
-.back img{
+.back img {
   width: 18px;
   height: 18px;
   margin-top: 14px;
