@@ -12,6 +12,8 @@ const Cart = () =>
 
 const Profile = () =>
     import ('views/profile/Profile.vue')
+const Detail = () =>
+    import ('views/detail/Detail.vue')
 
 Vue.use(VueRouter)
     // 导航重复
@@ -46,7 +48,12 @@ const routes = [{
         path: '/profile',
         name: 'Profile',
         component: Profile
-    }
+    },
+    {
+        path: '/detail/:id',
+        name: 'Detail',
+        component: Detail
+    },
 ]
 
 const router = new VueRouter({
