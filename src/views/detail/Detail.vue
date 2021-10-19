@@ -25,7 +25,8 @@ import DetailCommentInfo from "./childComps/DetailCommentInfo";
 import Scroll from "common/scroll/Scroll";
 import GoodsList from "content/goods/GoodsList";
 
-import { debounce } from "commonutil/util";
+
+import { itemListenerMixin } from "commonutil/mixin";
 import {
   getDetail,
   GoodsInfo,
@@ -45,7 +46,7 @@ export default {
       paramInfo: {},
       commentInfo: {},
       recommend: [],
-      itemImageListener: null,
+    
     };
   },
   components: {
@@ -64,7 +65,7 @@ export default {
       this.$refs.scroll.refresh();
     },
   },
-
+  mixins: [itemListenerMixin],
   created() {
     this.iid = this.$route.params.id;
 
@@ -101,14 +102,7 @@ export default {
       this.recommend = res.data.list;
     });
   },
-  mounted() {
-    let newRefresh = debounce(this.$refs.scroll.refresh, 100);
-    this.itemImageListener = () => {
-      newRefresh();
-    };
-
-    this.$bus.$on("imageLoad", this.itemImageListener);
-  },
+  mounted() {},
   // 取消全局监听
   destroyed() {
     this.$bus.$off("imageLoad", this.itemImageListener);

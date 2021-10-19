@@ -45,7 +45,7 @@ import GoodsList from "content/goods/GoodsList";
 import BackTop from "common/backTop/BackTop";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
-import { debounce } from "commonutil/util";
+import { itemListenerMixin } from "commonutil/mixin";
 
 export default {
   name: "Home",
@@ -73,10 +73,10 @@ export default {
       tabOffsetTop: 0,
       isFiexd: false,
       saveY: 0,
-      itemImageListener: null,
+
     };
   },
-
+  mixins: [itemListenerMixin],
   activated() {
     this.$refs.scroll.refresh();
     this.$refs.scroll.scroll.scrollTo(0, this.saveY, 0);
@@ -96,14 +96,14 @@ export default {
     this.getHomeGoods("sell");
   },
   mounted() {
-    // 图片加载完成监听
-    const refresh = debounce(this.$refs.scroll.refresh, 500);
-    // 监听事件总线发过来的是否图片加载的方法
-    this.itemImageListener = () => {
-      refresh();
-      // 重新计算可滚动区域，防止出现卡顿
-    };
-    this.$bus.$on("imageLoad", this.itemImageListener);
+    // // 图片加载完成监听
+    // const refresh = debounce(this.$refs.scroll.refresh, 500);
+    // // 监听事件总线发过来的是否图片加载的方法
+    // this.itemImageListener = () => {
+    //   refresh();
+    //   // 重新计算可滚动区域，防止出现卡顿
+    // };
+    // this.$bus.$on("imageLoad", this.itemImageListener);
   },
 
   computed: {
