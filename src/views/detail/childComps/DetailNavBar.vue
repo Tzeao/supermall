@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script>
+<script >
 import NavBar from "common/navbar/NavBar";
 import TabControl from "content/tabControl/TabControl";
 export default {
@@ -33,7 +33,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .back img {
   width: 18px;
   height: 18px;

@@ -6,7 +6,7 @@
   </swiper>
 </template>
 
-<script>
+<script scoped>
 import { Swiper, SwiperItem } from "common/swiper";
 export default {
   name: "DetailSwiper",

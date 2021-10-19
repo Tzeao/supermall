@@ -1,9 +1,11 @@
 <template>
   <div id="detail">
-    <detail-nav-bar />
-    <detail-swiper :topImages="topImage" />
-    <detail-base-info :goods="goods"></detail-base-info>
-    <detail-shop-info :shop="shop"></detail-shop-info>
+    <detail-nav-bar class="detail-nav" />
+    <scroll class="content">
+      <detail-swiper :topImages="topImage" />
+      <detail-base-info :goods="goods"></detail-base-info>
+      <detail-shop-info :shop="shop"></detail-shop-info>
+    </scroll>
   </div>
 </template>
 
@@ -12,6 +14,8 @@ import DetailNavBar from "./childComps/DetailNavBar";
 import DetailSwiper from "./childComps/DetailSwiper";
 import DetailBaseInfo from "./childComps/DetailBaseInfo";
 import DetailShopInfo from "./childComps/DetailShopInfo";
+
+import Scroll from "common/scroll/Scroll";
 
 import { getDetail, GoodsInfo, Shop } from "network/detai";
 export default {
@@ -29,6 +33,7 @@ export default {
     DetailSwiper,
     DetailBaseInfo,
     DetailShopInfo,
+    Scroll,
   },
   created() {
     this.iid = this.$route.params.id;
@@ -52,4 +57,15 @@ export default {
 </script>
 
 <style scoped>
+#detail {
+  height: 100vh;
+}
+.detail-nav {
+  position: relative;
+  z-index: 10;
+  background-color: #fff;
+}
+.content {
+  height: calc(100% - 44px);
+}
 </style>
