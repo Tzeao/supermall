@@ -7,7 +7,8 @@
       <detail-shop-info :shop="shop"></detail-shop-info>
       <detail-goods-info :detail-info="detailInfo" @imageload="imageload" />
       <detail-param-info :paramInfo="paramInfo" />
-      <detail-comment-info :commentInfo="commentInfo"/>
+      <detail-comment-info :commentInfo="commentInfo" />
+      <goods-list :goods="recommend"/>
     </scroll>
   </div>
 </template>
@@ -22,8 +23,15 @@ import DetailParamInfo from "./childComps/DetailParamInfo";
 import DetailCommentInfo from "./childComps/DetailCommentInfo";
 
 import Scroll from "common/scroll/Scroll";
+import GoodsList from "content/goods/GoodsList";
 
-import { getDetail, GoodsInfo, Shop, GoodsParam } from "network/detai";
+import {
+  getDetail,
+  GoodsInfo,
+  Shop,
+  GoodsParam,
+  getRecommend,
+} from "network/detai";
 export default {
   name: "Detail",
   data() {
@@ -35,6 +43,7 @@ export default {
       detailInfo: {},
       paramInfo: {},
       commentInfo: {},
+      recommend: [],
     };
   },
   components: {
@@ -46,6 +55,7 @@ export default {
     DetailGoodsInfo,
     DetailParamInfo,
     DetailCommentInfo,
+    GoodsList,
   },
   methods: {
     imageload() {
@@ -83,6 +93,10 @@ export default {
       if (data.rate.cRate !== 0) {
         this.commentInfo = data.rate.list[0];
       }
+    });
+    // 请求推荐数据
+    getRecommend().then((res) => {
+      this.recommend = res.data.list;
     });
   },
 };
