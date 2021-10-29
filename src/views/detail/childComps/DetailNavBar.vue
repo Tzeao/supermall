@@ -5,7 +5,7 @@
         <img src="~assets/img/common/back.svg" alt="" />
       </div>
       <div slot="center">
-        <tab-control :titles="titles" />
+        <tab-control :titles="titles" @tabClick="tabClick" />
       </div>
     </nav-bar>
   </div>
@@ -28,6 +28,9 @@ export default {
   methods: {
     back() {
       this.$router.back();
+    },
+    tabClick(index) {
+      this.$emit("titleClick", index);
     },
   },
 };

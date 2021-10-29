@@ -1,14 +1,14 @@
 <template>
   <div id="detail">
-    <detail-nav-bar class="detail-nav" />
+    <detail-nav-bar class="detail-nav" @titleClick="titleClick" />
     <scroll class="content" ref="scroll">
       <detail-swiper :topImages="topImage" />
       <detail-base-info :goods="goods"></detail-base-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
       <detail-goods-info :detail-info="detailInfo" @imageload="imageload" />
-      <detail-param-info :paramInfo="paramInfo" />
-      <detail-comment-info :commentInfo="commentInfo" />
-      <goods-list :goods="recommend" />
+      <detail-param-info :paramInfo="paramInfo" ref="params" />
+      <detail-comment-info :commentInfo="commentInfo" ref="comment" />
+      <goods-list :goods="recommend" ref="recommends" />
     </scroll>
   </div>
 </template>
@@ -24,7 +24,6 @@ import DetailCommentInfo from "./childComps/DetailCommentInfo";
 
 import Scroll from "common/scroll/Scroll";
 import GoodsList from "content/goods/GoodsList";
-
 
 import { itemListenerMixin } from "commonutil/mixin";
 import {
@@ -46,7 +45,7 @@ export default {
       paramInfo: {},
       commentInfo: {},
       recommend: [],
-    
+      themTopYs: [],
     };
   },
   components: {
@@ -60,12 +59,36 @@ export default {
     DetailCommentInfo,
     GoodsList,
   },
+  mixins: [itemListenerMixin],
   methods: {
     imageload() {
       this.$refs.scroll.refresh();
     },
+    titleClick(index) {
+      switch (index) {
+        case 0:
+          this.$refs.scroll.scroll.scrollTo(0, -this.themTopYs[0], 300);
+          break;
+        case 1:
+          this.$refs.scroll.scroll.scrollTo(0, -this.themTopYs[1], 200);
+          break;
+        case 2:
+          this.$refs.scroll.scroll.scrollTo(0, -this.themTopYs[2], 500);
+          break;
+        case 3:
+          this.$refs.scroll.scroll.scrollTo(0, -this.themTopYs[3], 600);
+          break;
+      }
+    },
   },
-  mixins: [itemListenerMixin],
+  updated() {
+    this.themTopYs = [];
+
+    this.themTopYs.push(0);
+    this.themTopYs.push(this.$refs.params.$el.offsetTop);
+    this.themTopYs.push(this.$refs.comment.$el.offsetTop);
+    this.themTopYs.push(this.$refs.recommend.$el.offsetTop);
+  },
   created() {
     this.iid = this.$route.params.id;
 
@@ -79,7 +102,7 @@ export default {
         data.columns,
         data.shopInfo.services
       );
-      console.log(this.goods);
+
       // 创建商家信息对象，
       this.shop = new Shop(data.shopInfo);
 

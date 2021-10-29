@@ -73,7 +73,6 @@ export default {
       tabOffsetTop: 0,
       isFiexd: false,
       saveY: 0,
-
     };
   },
   mixins: [itemListenerMixin],
@@ -139,11 +138,9 @@ export default {
     },
     // 小图标显示-隐藏
     contentScroll(position) {
-      console.log("55");
       this.isShow = -position.y > 1000;
       // 决定是否吸顶
       this.isFiexd = -position.y > this.tabOffsetTop;
-      console.log(this.isFiexd);
     },
 
     // 上拉加载
@@ -156,7 +153,6 @@ export default {
       // 获取到tabcontrol的offsetTop
       // 所有组件都有一个属性$el，这个是原来获取组件中的元素的
       this.tabOffsetTop = this.$refs.tabcontrol2.$el.offsetTop;
-      console.log(this.tabOffsetTop);
     },
 
     // // 防抖动

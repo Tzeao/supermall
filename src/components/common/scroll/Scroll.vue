@@ -38,7 +38,7 @@ export default {
     if (this.probeType === 2 || this.probeType === 3) {
       this.scroll.on("scroll", (position) => {
         this.$emit("scroll", position);
-        console.log("sss");
+
       });
     }
     // 监听上拉事件
