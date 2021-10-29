@@ -26,6 +26,7 @@ import Scroll from "common/scroll/Scroll";
 import GoodsList from "content/goods/GoodsList";
 
 import { itemListenerMixin } from "commonutil/mixin";
+import { debounce } from "commonutil/util";
 import {
   getDetail,
   GoodsInfo,
@@ -46,6 +47,7 @@ export default {
       commentInfo: {},
       recommend: [],
       themTopYs: [],
+      getThemeTopY: null,
     };
   },
   components: {
@@ -63,7 +65,11 @@ export default {
   methods: {
     imageload() {
       this.$refs.scroll.refresh();
+
+      // 在这里可以准确获取
+      this.getThemeTopY();
     },
+
     titleClick(index) {
       switch (index) {
         case 0:
@@ -81,14 +87,16 @@ export default {
       }
     },
   },
-  updated() {
-    this.themTopYs = [];
 
-    this.themTopYs.push(0);
-    this.themTopYs.push(this.$refs.params.$el.offsetTop);
-    this.themTopYs.push(this.$refs.comment.$el.offsetTop);
-    this.themTopYs.push(this.$refs.recommend.$el.offsetTop);
-  },
+  // // 通过updated函数可以保住$el在渲染完成后才调用 ，因为渲染完成后会调用这个函数
+  // updated() {
+  //   this.themTopYs = [];
+  //   this.themTopYs.push(0);
+  //   this.themTopYs.push(this.$refs.params.$el.offsetTop);
+  //   this.themTopYs.push(this.$refs.comment.$el.offsetTop);
+  //   this.themTopYs.push(this.$refs.recommends.$el.offsetTop);
+  //   console.log(this.themTopYs);
+  // },
   created() {
     this.iid = this.$route.params.id;
 
@@ -120,10 +128,31 @@ export default {
         this.commentInfo = data.rate.list[0];
       }
     });
+
+
     // 请求推荐数据
     getRecommend().then((res) => {
       this.recommend = res.data.list;
     });
+
+    // 给getThemeTopY赋值
+    this.getThemeTopY = debounce(() => {
+      this.themTopYs = [];
+      this.themTopYs.push(0);
+      this.themTopYs.push(this.$refs.params.$el.offsetTop - 50);
+      this.themTopYs.push(this.$refs.comment.$el.offsetTop);
+      this.themTopYs.push(this.$refs.recommends.$el.offsetTop - 50);
+      console.log(this.themTopYs);
+    },100);
+    // 渲染完成后，进行回调，可以实时更新     但是这样获取到数据是不对的，或是根本获取不到
+    // this.$nextTick(() => {
+    //   this.themTopYs = [];
+    //   this.themTopYs.push(0);
+    //   this.themTopYs.push(this.$refs.params.$el.offsetTop);
+    //   this.themTopYs.push(this.$refs.comment.$el.offsetTop);
+    //   this.themTopYs.push(this.$refs.recommends.$el.offsetTop);
+    //   console.log(this.$refs.params.$el);
+    // });
   },
   mounted() {},
   // 取消全局监听
