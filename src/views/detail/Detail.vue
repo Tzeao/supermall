@@ -1,7 +1,12 @@
 <template>
   <div id="detail">
-    <detail-nav-bar class="detail-nav" @titleClick="titleClick" />
-    <scroll class="content" ref="scroll">
+    <detail-nav-bar class="detail-nav" @titleClick="titleClick" ref="detail" />
+    <scroll
+      class="content"
+      ref="scroll"
+      @scroll="contentScroll"
+      :probe-type="3"
+    >
       <detail-swiper :topImages="topImage" />
       <detail-base-info :goods="goods"></detail-base-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
@@ -48,6 +53,7 @@ export default {
       recommend: [],
       themTopYs: [],
       getThemeTopY: null,
+      currentIndex: 0,
     };
   },
   components: {
@@ -69,7 +75,30 @@ export default {
       // 在这里可以准确获取
       this.getThemeTopY();
     },
+    // 监听页面滚动
+    contentScroll(position) {
+      // 1. 获取Y值
+      const positionY = -position.y;
 
+      //  与页面固定内容位置进行对比
+      for (let i in this.themTopYs) {
+        // 要先判断currentIndex是否与i一致，这样就可以减少持续打印
+        if (
+          (this.currentIndex !== i &&
+            i < this.themTopYs.length - 1 &&
+            positionY >= this.themTopYs[parseInt(i)] &&
+            positionY < this.themTopYs[parseInt(i) + 1]) ||
+          (i == this.themTopYs.length - 1 &&
+            positionY >= this.themTopYs[parseInt(i)])
+        ) {
+          this.currentIndex = i;
+          console.log(i);
+          // 给导航栏传递数值
+          this.$refs.detail.currentIndex = this.currentIndex;
+          this.$refs.detail.scrollY();
+        }
+      }
+    },
     titleClick(index) {
       switch (index) {
         case 0:
@@ -129,7 +158,6 @@ export default {
       }
     });
 
-
     // 请求推荐数据
     getRecommend().then((res) => {
       this.recommend = res.data.list;
@@ -143,7 +171,7 @@ export default {
       this.themTopYs.push(this.$refs.comment.$el.offsetTop);
       this.themTopYs.push(this.$refs.recommends.$el.offsetTop - 50);
       console.log(this.themTopYs);
-    },100);
+    }, 100);
     // 渲染完成后，进行回调，可以实时更新     但是这样获取到数据是不对的，或是根本获取不到
     // this.$nextTick(() => {
     //   this.themTopYs = [];

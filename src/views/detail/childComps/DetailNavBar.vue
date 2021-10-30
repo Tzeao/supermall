@@ -5,7 +5,12 @@
         <img src="~assets/img/common/back.svg" alt="" />
       </div>
       <div slot="center">
-        <tab-control :titles="titles" @tabClick="tabClick" />
+        <tab-control
+          :titles="titles"
+          @tabClick="tabClick"
+          :currentIndex="currentIndex"
+          ref="test"
+        />
       </div>
     </nav-bar>
   </div>
@@ -23,6 +28,7 @@ export default {
   data() {
     return {
       titles: ["商品", "参数", "评论", "推荐"],
+      currentIndex: 0,
     };
   },
   methods: {
@@ -31,6 +37,10 @@ export default {
     },
     tabClick(index) {
       this.$emit("titleClick", index);
+    },
+    scrollY() {
+      this.$refs.test.currntIndex = this.currentIndex;
+       this.$refs.test.scrollYS();
     },
   },
 };

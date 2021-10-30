@@ -21,17 +21,19 @@ export default {
         return [];
       },
     },
-  },
-  data() {
-    return {
-      currntIndex: 0,
-    };
+    currntIndex: {
+      type: Number,
+      default: 0,
+    },
   },
   methods: {
     itemClick(index) {
       this.currntIndex = index;
-      this.$emit('tabClick', index)
+      this.$emit("tabClick", index);
     },
+    scrollYS(){
+      this.currntIndex = parseInt(this.currntIndex)
+    }
   },
 };
 </script>
