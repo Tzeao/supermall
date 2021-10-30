@@ -8,7 +8,7 @@
         <tab-control
           :titles="titles"
           @tabClick="tabClick"
-          :currentIndex="currentIndex"
+          :currntIndex="currentIndex"
           ref="test"
         />
       </div>
@@ -37,10 +37,6 @@ export default {
     },
     tabClick(index) {
       this.$emit("titleClick", index);
-    },
-    scrollY() {
-      this.$refs.test.currntIndex = this.currentIndex;
-       this.$refs.test.scrollYS();
     },
   },
 };

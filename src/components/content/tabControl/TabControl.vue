@@ -3,7 +3,7 @@
     <div
       v-for="(item, index) in titles"
       class="tab-control-item"
-      :class="{ active: index === currntIndex }"
+      :class="{ active: index === currntIndex}"
       @click="itemClick(index)"
     >
       <span>{{ item }}</span>
@@ -26,14 +26,23 @@ export default {
       default: 0,
     },
   },
+  computed: {
+    tabIndex: {
+      get: function () {
+        return this.currentIndex
+        console.log("av");
+      },
+      set: function (newValue) {
+        this.currentIndex = newValue;
+        console.log("aa");
+      },
+    },
+  },
   methods: {
     itemClick(index) {
-      this.currntIndex = index;
+      this.tabIndex = index
       this.$emit("tabClick", index);
     },
-    scrollYS(){
-      this.currntIndex = parseInt(this.currntIndex)
-    }
   },
 };
 </script>

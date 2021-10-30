@@ -92,10 +92,10 @@ export default {
             positionY >= this.themTopYs[parseInt(i)])
         ) {
           this.currentIndex = i;
-          console.log(i);
           // 给导航栏传递数值
-          this.$refs.detail.currentIndex = this.currentIndex;
-          this.$refs.detail.scrollY();
+          setTimeout(() => {
+            this.$refs.detail.currentIndex = parseInt(this.currentIndex);
+          }, 200);
         }
       }
     },
@@ -105,13 +105,13 @@ export default {
           this.$refs.scroll.scroll.scrollTo(0, -this.themTopYs[0], 300);
           break;
         case 1:
-          this.$refs.scroll.scroll.scrollTo(0, -this.themTopYs[1], 200);
+          this.$refs.scroll.scroll.scrollTo(0, -this.themTopYs[1], 100);
           break;
         case 2:
-          this.$refs.scroll.scroll.scrollTo(0, -this.themTopYs[2], 500);
+          this.$refs.scroll.scroll.scrollTo(0, -this.themTopYs[2], 200);
           break;
         case 3:
-          this.$refs.scroll.scroll.scrollTo(0, -this.themTopYs[3], 600);
+          this.$refs.scroll.scroll.scrollTo(0, -this.themTopYs[3], 250);
           break;
       }
     },
