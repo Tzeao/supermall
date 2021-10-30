@@ -15,6 +15,8 @@
       <detail-comment-info :commentInfo="commentInfo" ref="comment" />
       <goods-list :goods="recommend" ref="recommends" />
     </scroll>
+    <detail-bottom-bar />
+    <back-top @click.native="backClick" v-show="isShow" />
   </div>
 </template>
 
@@ -26,12 +28,15 @@ import DetailShopInfo from "./childComps/DetailShopInfo";
 import DetailGoodsInfo from "./childComps/DetailGoodsInfo";
 import DetailParamInfo from "./childComps/DetailParamInfo";
 import DetailCommentInfo from "./childComps/DetailCommentInfo";
+import DetailBottomBar from "./childComps/DeatilBottomBar";
 
 import Scroll from "common/scroll/Scroll";
 import GoodsList from "content/goods/GoodsList";
 
 import { itemListenerMixin } from "commonutil/mixin";
 import { debounce } from "commonutil/util";
+
+import BackTop from "common/backTop/BackTop";
 import {
   getDetail,
   GoodsInfo,
@@ -39,6 +44,7 @@ import {
   GoodsParam,
   getRecommend,
 } from "network/detai";
+
 export default {
   name: "Detail",
   data() {
@@ -54,6 +60,7 @@ export default {
       themTopYs: [],
       getThemeTopY: null,
       currentIndex: 0,
+      isShow: false,
     };
   },
   components: {
@@ -66,6 +73,8 @@ export default {
     DetailParamInfo,
     DetailCommentInfo,
     GoodsList,
+    DetailBottomBar,
+    BackTop,
   },
   mixins: [itemListenerMixin],
   methods: {
@@ -97,6 +106,11 @@ export default {
             this.$refs.detail.currentIndex = parseInt(this.currentIndex);
           }, 200);
         }
+
+        // 返回顶部图标
+        // 小图标显示-隐藏
+
+        this.isShow = -position.y > 1000;
       }
     },
     titleClick(index) {
@@ -114,6 +128,12 @@ export default {
           this.$refs.scroll.scroll.scrollTo(0, -this.themTopYs[3], 250);
           break;
       }
+    },
+    backClick() {
+      // 拿到better-scroll实例，调用返回顶部方法
+      this.$refs.scroll.scroll &&
+        this.$refs.scroll.scroll.scrollTo &&
+        this.$refs.scroll.scroll.scrollTo(0, 0, 1500);
     },
   },
 
@@ -200,6 +220,6 @@ export default {
   background-color: #fff;
 }
 .content {
-  height: calc(100% - 44px);
+  height: calc(100% - 44px - 49px);
 }
 </style>
