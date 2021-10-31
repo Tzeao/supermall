@@ -17,7 +17,7 @@
     </scroll>
     <detail-bottom-bar @addCart="addToCart" />
     <back-top @click.native="backClick" v-show="isShow" />
-    <toast :message="message" :show="show"></toast>
+    <!-- <toast :message="message" :show="show"></toast> -->
   </div>
 </template>
 
@@ -63,8 +63,8 @@ export default {
       getThemeTopY: null,
       currentIndex: 0,
       isShow: false,
-      message: "",
-      show: false,
+      // message: "",
+      // show: false,
     };
   },
   components: {
@@ -154,12 +154,18 @@ export default {
       // this.$store.commit("addCart", product);
       this.$store.dispatch("addCart", product).then((res) => {
         //  添加成功弹窗
-        this.show = true;
-        this.message = res;
-        setTimeout(() => {
-          this.show = false;
-          this.message = "";
-        }, 1500);
+        //  普通方法
+        // this.show = true;
+        // this.message = res;
+        // setTimeout(() => {
+        //   this.show = false;
+        //   this.message = "";
+        // }, 1500);
+
+        // 插件
+        console.log(this.$toast);
+        this.$toast.Show(res, 2000);
+  
       });
     },
   },

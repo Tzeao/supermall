@@ -8,13 +8,30 @@
 export default {
   name: "Toast",
   props: {
-    message: {
-      type: String,
-      default: "",
-    },
-    show: {
-      type: Boolean,
-      default: false,
+    // message: {
+    //   type: String,
+    //   default: "",
+    // },
+    // show: {
+    //   type: Boolean,
+    //   default: false,
+    // },
+  },
+  data() {
+    return {
+      message: "",
+      show: false,
+    };
+  },
+  methods: {
+    Show(message, duration) {
+      this.show = true;
+      console.log("sss");
+      this.message = message;
+      setTimeout(() => {
+        this.show = false;
+        this.message = "";
+      }, duration);
     },
   },
 };
