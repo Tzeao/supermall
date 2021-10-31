@@ -10,7 +10,7 @@ export default {
   props: {
     isCheck: {
       type: Boolean,
-      default: false,
+      default: false
     },
   },
 };
@@ -18,12 +18,13 @@ export default {
 
 <style scoped>
 .check-button {
+ background-color: #eeeeee;
   border-radius: 50%;
-  border: 2px solid #888;
+  border:solid 1px #aaa;
 }
 .active {
+ border-color: #ff5777;
   border-radius: 50%;
-  background-color: red;
-  border-color: red;
+  background-color: #ff5777;
 }
 </style>

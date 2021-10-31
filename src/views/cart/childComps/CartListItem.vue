@@ -1,10 +1,10 @@
 <template>
   <div class="item">
     <div class="item-selector">
-      <CheckButton
-        :isCheck="itemInfo.checked"
+      <check-button
+        :is-check="isCheck"
         @click.native="checkClick"
-      ></CheckButton>
+      ></check-button>
     </div>
     <div class="item-img">
       <img :src="itemInfo.image" alt="商品图片" />
@@ -35,8 +35,14 @@ export default {
       },
     },
   },
+  data() {
+    return {
+      isCheck: true,
+    };
+  },
   methods: {
     checkClick() {
+      this.isCheck = !this.itemInfo.checked;
       this.itemInfo.checked = !this.itemInfo.checked;
     },
   },
