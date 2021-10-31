@@ -2,14 +2,14 @@
   <div class="item">
     <div class="item-selector">
       <CheckButton
-        :is-checked="itemInfo.isChecked"
+        :isCheck="itemInfo.checked"
         @click.native="checkClick"
       ></CheckButton>
     </div>
     <div class="item-img">
       <img :src="itemInfo.image" alt="商品图片" />
     </div>
-    <div class="item-info" >
+    <div class="item-info">
       <div class="item-title">{{ itemInfo.title }}</div>
       <div class="item-desc">商品描述: {{ itemInfo.desc }}</div>
       <div class="info-bottom">
@@ -21,11 +21,11 @@
 </template>
 
 <script>
-import CheckButton from 'content/checkButton/CheckButton'
+import CheckButton from "content/checkButton/CheckButton";
 export default {
   name: "CartListItem",
-  components:{
-    CheckButton
+  components: {
+    CheckButton,
   },
   props: {
     itemInfo: {
@@ -33,6 +33,11 @@ export default {
       default() {
         return {};
       },
+    },
+  },
+  methods: {
+    checkClick() {
+      this.itemInfo.checked = !this.itemInfo.checked;
     },
   },
 };

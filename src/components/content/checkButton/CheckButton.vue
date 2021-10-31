@@ -21,7 +21,7 @@ export default {
   border-radius: 50%;
   border: 2px solid #888;
 }
-.acive {
+.active {
   border-radius: 50%;
   background-color: red;
   border-color: red;
