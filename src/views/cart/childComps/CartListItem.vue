@@ -2,7 +2,7 @@
   <div class="item">
     <div class="item-selector">
       <check-button
-        :is-check="isCheck"
+        :is-check="itemInfo.checked"
         @click.native="checkClick"
       ></check-button>
     </div>
@@ -37,12 +37,11 @@ export default {
   },
   data() {
     return {
-      isCheck: true,
+      coun:1
     };
   },
   methods: {
     checkClick() {
-      this.isCheck = !this.itemInfo.checked;
       this.itemInfo.checked = !this.itemInfo.checked;
     },
   },

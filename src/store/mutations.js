@@ -1,6 +1,6 @@
 export default {
     addCounter(state, payload) {
-        payload.count++
+        payload.count += 1
     },
     addToCart(state, payload) {
         payload.checked = true

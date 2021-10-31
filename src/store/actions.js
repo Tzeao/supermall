@@ -1,19 +1,22 @@
 export default {
     addCart(context, payload) {
-        // 判断是否重复添加
-        let oldProduct = null;
+        return new Promise(((resolve, reject) => {
+            let oldProduct = null;
 
-        for (let item of context.state.cartList) {
-            if (item.iid === payload.iid) {
-                oldProduct = item
+            for (let item of context.state.cartList) {
+                if (item.iid === payload.iid) {
+                    oldProduct = item
+                }
             }
-        }
-        if (oldProduct) {
-            // oldProduct.count += 1
-            context.commit("addCounter", oldProduct)
-        } else {
-            context.commit('addToCart', payload)
-            payload.count = 1
-        }
+            if (oldProduct) {
+                context.commit("addCounter", oldProduct)
+                    //  oldproduct.count++
+                resolve('添加商品数量加一')
+            } else {
+                payload.count = 1
+                context.commit('addToCart', payload)
+                resolve('添加新商品')
+            }
+        }))
     }
 }
