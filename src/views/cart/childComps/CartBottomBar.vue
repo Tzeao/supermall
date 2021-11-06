@@ -67,7 +67,7 @@ export default {
   display: flex;
   align-items: center;
   margin-left: 10px;
-  width: 60px;
+  width: 70px;
 }
 .check-button {
   width: 20px;
